@@ -1,5 +1,8 @@
-from django.views.generic import FormView
+from django.conf.urls import *
 
+from demo.demo_app.views import ChangeThemeOptionsView
 
-class ChangeThemeOptions(FormView):
-    template_name = ''
+urlpatterns = patterns('',
+    url(r'^$', ChangeThemeOptionsView.as_view(), name='change_theme_options'),
+    # url(r'^sublevel/$', 'sample_view', name='app_sublevel'),
+)

@@ -1,7 +1,20 @@
-from django.conf.urls import *
+from django.core.urlresolvers import reverse
+from django.views.generic import FormView
+from .forms import ChangeThemeOptionsForm
 
 
-urlpatterns = patterns(
-    url(r'^$', 'main_view', name='app_main'),
-    url(r'^sublevel/$', 'sample_view', name='app_sublevel'),
-)
+class ChangeThemeOptionsView(FormView):
+    template_name = 'demo_app/change_theme.html'
+    form_class = ChangeThemeOptionsForm
+
+    def get_form_kwargs(self):
+        kwargs = super(ChangeThemeOptionsView, self).get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
+    def form_valid(self, form):
+        form.save()
+        return super(ChangeThemeOptionsView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse('change_theme_options')

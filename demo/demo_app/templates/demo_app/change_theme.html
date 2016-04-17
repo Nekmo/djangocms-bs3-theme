@@ -1,6 +1,8 @@
 {% extends CMS_TEMPLATE %}
-{% load cms_tags %}
+{% load cms_tags bootstrap3 %}
 {% block main %}
-{{ form }}
-{% static_placeholder "sidebar" %}
-{% endblock main %}
+    <form action="" method="post">{% csrf_token %}
+        {% bootstrap_form form %}
+        {% bootstrap_button "Submit" 'submit' %}
+    </form>
+{% endblock %}

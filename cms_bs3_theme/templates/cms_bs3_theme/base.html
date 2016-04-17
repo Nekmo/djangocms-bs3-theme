@@ -1,0 +1,25 @@
+{% load cms_tags staticfiles sekizai_tags menu_tags bs3_string_utils %}
+<!doctype html>
+<html class="{{ bs3_conf.BOOTSTRAP3_MENU_TEMPLATE|only_file_name }}">
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}DjangoCMS Bootstrap Theme{% endblock title %}</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        {% block bs3_theme_css %}
+              <link rel="stylesheet" href="{% static 'cms_bs3_theme/src/css/default.css' %}">
+        {% endblock %}
+        {% render_block "css" %}
+    </head>
+    <body>
+        {% cms_toolbar %}
+        {% include bs3_conf.BOOTSTRAP3_MENU_TEMPLATE %}
+        {% block content %}{% endblock content %}
+        {% block bs3_theme_js %}
+              <script src="{% static 'cms_bs3_theme/src/libs/jquery/dist/jquery.js' %}"></script>
+              <script
+                      src="{% static 'cms_bs3_theme/src/libs/bootstrap-sass/assets/javascripts/bootstrap.js' %}">
+              </script>
+        {% endblock %}
+        {% render_block "js" %}
+    </body>
+</html>

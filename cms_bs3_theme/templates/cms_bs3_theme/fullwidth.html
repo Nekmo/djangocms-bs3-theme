@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% bs3_extends "cms_bs3_theme/base_theme.html" %}
+{% load i18n cms_tags %}
 
-</body>
-</html>
+{% block body_class %}tpl-fullwidth{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% block main %}
+            {% with 940 as width %}{% placeholder content %}{% endwith %}
+        {% endblock %}
+    </div>
+{% endblock %}
