@@ -3,9 +3,9 @@ html {
         body {
             margin-top: 80px;
 
-            &.cms-toolbar-expanded [role=navigation] {
-                margin-top: 45px;
-            }
+        }
+        &.cms-toolbar-expanded [role=navigation] {
+            margin-top: 45px;
         }
     }
 }

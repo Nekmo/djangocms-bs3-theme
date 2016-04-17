@@ -8951,7 +8951,7 @@ button.close {
 html.fluid-fixed-top-default body, html.fluid-fixed-top body, html.fluid-fixed-top-inverse body {
   margin-top: 80px;
 }
-/* line 6, ../scss/_common.scss */
-html.fluid-fixed-top-default body.cms-toolbar-expanded [role=navigation], html.fluid-fixed-top body.cms-toolbar-expanded [role=navigation], html.fluid-fixed-top-inverse body.cms-toolbar-expanded [role=navigation] {
+/* line 7, ../scss/_common.scss */
+html.fluid-fixed-top-default.cms-toolbar-expanded [role=navigation], html.fluid-fixed-top.cms-toolbar-expanded [role=navigation], html.fluid-fixed-top-inverse.cms-toolbar-expanded [role=navigation] {
   margin-top: 45px;
 }

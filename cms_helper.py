@@ -98,7 +98,19 @@ HELPER_SETTINGS = dict(
                 ],
             }
         },
-    ]
+    ],
+    CMS_PLACEHOLDER_CONF={
+        'post_content': {
+            'default_plugins': [
+                {
+                    'feature': 'TextPlugin',
+                    'values': {
+                        'body': '<p>Lorem ipsum dolor sit amet...</p>',
+                    },
+                },
+            ]
+        },
+    }
 )
 
 

@@ -1,0 +1,22 @@
+{% bs3_extends "cms_bs3_theme/base_theme.html" %}
+{% load cms_tags %}
+
+{% block title %}{% page_attribute "page_title" %}{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <div class="jumbotron">
+            {% block splashbox %}
+                {% placeholder "splashbox" or %}
+                    <h3>DjangoCMS develop without writing templates</h3>
+                    <h1>Bootstrap3 Themes for DjangoCMS.</h1>
+                    <h5>You don't need to write html anymore. Easy to use. Very customizable.</h5>
+                    <h5>Are you ready to freak out?</h5>
+                {% endplaceholder %}
+            {% endblock %}
+        </div>
+    </div>
+    <div>
+        {% placeholder "content" %}
+    </div>
+{% endblock content %}
