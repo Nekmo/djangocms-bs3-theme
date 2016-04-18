@@ -36,8 +36,8 @@ for app in settings.INSTALLED_APPS:
                           os.listdir(menus_dir)))
 
 class ChangeThemeOptionsForm(Form):
-    bootstrap3_theme = ChoiceField(choices=themes)
-    bootstrap3_menu_template = ChoiceField(choices=menus)
+    bootstrap3_theme = ChoiceField(choices=sorted(themes))
+    bootstrap3_menu_template = ChoiceField(choices=sorted(menus))
     bootstrap3_sidebar_cols = IntegerField(widget=Select(choices=[(i, i) for i in range(1, conf.BOOTSTRAP3_COLS)]))
 
     def __init__(self, *args, **kwargs):
