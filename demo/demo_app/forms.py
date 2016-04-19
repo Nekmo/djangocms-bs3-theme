@@ -42,7 +42,7 @@ class ChangeThemeOptionsForm(Form):
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request')
-        initial = self.request.session.get('cms_bs3_theme_conf', conf)
+        initial = self.request.session.get('cms_bs3_theme_conf', dict(vars(conf)))
         initial = dict(map(lambda x: (str.lower(x[0]), x[1]), initial.items()))
         kwargs['initial'] = kwargs.get('initial') or initial
         super(ChangeThemeOptionsForm, self).__init__(*args, **kwargs)
