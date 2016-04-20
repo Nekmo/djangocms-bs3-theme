@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import datetime
 import sys
 
@@ -37,6 +38,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO public;
 COMMENT ON SCHEMA public IS 'standard public schema';
 """
+START_VIRTUALENV = 'source `which virtualenvwrapper.sh`; workon {}'.format(REMOTE_PROJECT)
 
 
 def _nondirty_git():
@@ -73,20 +75,11 @@ def _copy_database():
     local('touch "{}"'.format(dbfile))
     local('chmod 600 "{}"'.format(dbfile))
     local('pg_dump "{}" >> {}'.format(DATABASE, dbfile))
-    try:
-        put(dbfile, dbfile, mode="0600")
-    except Exception as e:
-        raise e
-    finally:
-        local('rm "{}"'.format(dbfile))
+    put(dbfile, dbfile, mode="0600")
+    local('rm "{}"'.format(dbfile))
     run('psql {} -c "{}"'.format(DATABASE, CLEAR_SQL))
-    try:
-        run('psql "{}" < {}'.format(DATABASE, dbfile))
-        # run('pg_restore -c -d "{}" "{}"'.format(DATABASE, dbfile))
-    except Exception as e:
-        raise e
-    finally:
-        run('rm "{}"'.format(dbfile))
+    run('psql "{}" < {}'.format(DATABASE, dbfile))
+    # run('rm "{}"'.format(dbfile))
 
 
 def _migrate():
@@ -103,8 +96,7 @@ def deploy(ignore_nondirty=False):
         _nondirty_git()
     tox()
     _create_project(REMOTE_PROJECT)
-    virtualenv = prefix('source `which virtualenvwrapper.sh`; workon {}'.format(REMOTE_PROJECT))
-    with virtualenv:
+    with prefix(START_VIRTUALENV):
         if not exists('.git'):
             run('git clone --recursive {} .'.format(GIT_PROJECT_URL))
         else:
@@ -113,7 +105,7 @@ def deploy(ignore_nondirty=False):
     if COPY_DATABASE:
         _copy_database()
     else:
-        with virtualenv:
+        with prefix(START_VIRTUALENV):
             _migrate()
-    with virtualenv:
-        run('pip -r "{}"'.format(REQUIREMENTS_FILE))
+    with prefix(START_VIRTUALENV):
+        run('pip install -r "{}"'.format(REQUIREMENTS_FILE))
