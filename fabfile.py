@@ -1,16 +1,42 @@
+import datetime
 import sys
 
 import os
+import tempfile
+
 from fabric.api import *
+from uuid import uuid4
+
+from fabric.contrib.files import exists
 
 sys.path.append('demo/demo_app')
 
-try:
-    from secrets import deploy
-except ImportError:
-    deploy = None
 
-env.hosts = getattr(deploy, 'hosts', [])
+try:
+    from secrets import deploy_settings
+except ImportError:
+    deploy_settings = None
+
+env.hosts = getattr(deploy_settings, 'hosts', [])
+REMOTE_PROJECT = getattr(deploy_settings, 'REMOTE_PROJECT', 'cms-bs3-theme')
+COPY_DATABASE = getattr(deploy_settings, 'COPY_DATABASE', False)
+DATABASE = getattr(deploy_settings, 'DATABASE', REMOTE_PROJECT)
+
+GIT_PROJECT_URL = 'https://github.com/Nekmo/djangocms-bs3-theme.git'
+TEMPDIR = tempfile.tempdir or '/tmp'
+MANAGE = 'demo/manage.py'
+REMOTE_BACKUPS_DIR = '~/Backups'
+MAX_DATABASE_BACKUPS = 10
+REQUIREMENTS_FILE = 'demo/requirements.txt'
+
+# http://www.postgresql.org/docs/8.2/static/sql-alterschema.html
+CLEAR_SQL = """
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA public;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO public;
+COMMENT ON SCHEMA public IS 'standard public schema';
+"""
 
 
 def _nondirty_git():
@@ -23,12 +49,71 @@ def _nondirty_git():
     raise SystemExit()
 
 
+def _create_project(project):
+    project_home = run('echo $PROJECT_HOME').stdout
+    if not exists('$PROJECT_HOME/{}'.format(project_home, project)):
+        run('mkproject "{}"'.format(project))
+
+
+def _backup_db():
+    backup_dir = '{}/{}'.format(REMOTE_BACKUPS_DIR, REMOTE_PROJECT)
+    if not exists(backup_dir):
+        run('mkdir -p {}'.format((backup_dir)))
+    run('pg_dump "{}" >> {}/{}'.format(DATABASE, backup_dir,
+                                       datetime.datetime.now().replace(microsecond=0).isoformat()))
+    # Borrar los archivos más antiguos
+    with cd(backup_dir):
+        backups_i = int(run('ls -1 | wc -l'.format(REMOTE_BACKUPS_DIR)).stdout)
+        if backups_i > MAX_DATABASE_BACKUPS:
+            run('rm `ls -1 | head -1`')
+
+
+def _copy_database():
+    dbfile = os.path.join(TEMPDIR, uuid4().hex) + '.dump'
+    local('touch "{}"'.format(dbfile))
+    local('chmod 600 "{}"'.format(dbfile))
+    local('pg_dump "{}" >> {}'.format(DATABASE, dbfile))
+    try:
+        put(dbfile, dbfile, mode="0600")
+    except Exception as e:
+        raise e
+    finally:
+        local('rm "{}"'.format(dbfile))
+    run('psql {} -c "{}"'.format(DATABASE, CLEAR_SQL))
+    try:
+        run('psql "{}" < {}'.format(DATABASE, dbfile))
+        # run('pg_restore -c -d "{}" "{}"'.format(DATABASE, dbfile))
+    except Exception as e:
+        raise e
+    finally:
+        run('rm "{}"'.format(dbfile))
+
+
+def _migrate():
+    run('python {} migrate'.format(MANAGE))
+
+
 def tox():
     if os.path.exists('tox.ini'):
         local('tox')
 
 
-def deploy():
-    _nondirty_git()
+def deploy(ignore_nondirty=False):
+    if not ignore_nondirty:
+        _nondirty_git()
     tox()
-    # run('uname -a')
+    _create_project(REMOTE_PROJECT)
+    virtualenv = prefix('source `which virtualenvwrapper.sh`; workon {}'.format(REMOTE_PROJECT))
+    with virtualenv:
+        if not exists('.git'):
+            run('git clone --recursive {} .'.format(GIT_PROJECT_URL))
+        else:
+            run('git pull')
+        _backup_db()
+    if COPY_DATABASE:
+        _copy_database()
+    else:
+        with virtualenv:
+            _migrate()
+    with virtualenv:
+        run('pip -r "{}"'.format(REQUIREMENTS_FILE))

@@ -46,7 +46,6 @@ class Bs3IncludeNode(IncludeNode):
         return super(Bs3IncludeNode, self).render(context)
 
 
-
 @register.tag
 def bs3_extends(parser, token):
     """
