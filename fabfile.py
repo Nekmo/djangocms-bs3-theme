@@ -27,8 +27,11 @@ GIT_PROJECT_URL = 'https://github.com/Nekmo/djangocms-bs3-theme.git'
 TEMPDIR = tempfile.tempdir or '/tmp'
 MANAGE = 'demo/manage.py'
 REMOTE_BACKUPS_DIR = '~/Backups'
+STATIC_FILES_DIR = '~/Static'
 MAX_DATABASE_BACKUPS = 10
 REQUIREMENTS_FILE = 'demo/requirements.txt'
+SETTINGS = 'demo_app.settings.production'
+
 
 # http://www.postgresql.org/docs/8.2/static/sql-alterschema.html
 CLEAR_SQL = """
@@ -57,10 +60,20 @@ def _create_project(project):
         run('mkproject "{}"'.format(project))
 
 
+def _create_directory(directory):
+    if not exists(directory):
+        run('mkdir -p {}'.format((directory)))
+
+
+def _collecstatic():
+    static_directory = '{}/{}'.format(STATIC_FILES_DIR, REMOTE_PROJECT)
+    _create_directory(static_directory)
+    run('python {} collectstatic -c --settings {}'.format(MANAGE, SETTINGS))
+
+
 def _backup_db():
     backup_dir = '{}/{}'.format(REMOTE_BACKUPS_DIR, REMOTE_PROJECT)
-    if not exists(backup_dir):
-        run('mkdir -p {}'.format((backup_dir)))
+    _create_directory(backup_dir)
     run('pg_dump "{}" >> {}/{}'.format(DATABASE, backup_dir,
                                        datetime.datetime.now().replace(microsecond=0).isoformat()))
     # Borrar los archivos más antiguos
@@ -102,10 +115,10 @@ def deploy(ignore_nondirty=False):
         else:
             run('git pull')
         _backup_db()
+        run('pip install -r "{}"'.format(REQUIREMENTS_FILE))
+        _collecstatic()
     if COPY_DATABASE:
         _copy_database()
     else:
         with prefix(START_VIRTUALENV):
             _migrate()
-    with prefix(START_VIRTUALENV):
-        run('pip install -r "{}"'.format(REQUIREMENTS_FILE))
