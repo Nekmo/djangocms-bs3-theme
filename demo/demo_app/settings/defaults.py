@@ -57,9 +57,9 @@ LANGUAGE_CODE = 'es'
 
 TIME_ZONE = 'Europe/Madrid'
 
-USE_I18N = True
+USE_I18N = False
 
-USE_L10N = True
+USE_L10N = False
 
 USE_TZ = True
 
