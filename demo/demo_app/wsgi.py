@@ -8,9 +8,17 @@ https://docs.djangoproject.com/en/1.8/howto/deployment/wsgi/
 """
 
 import os
+import sys
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "cms_bs3_theme.settings.production")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+try:
+    import cms_bs3_theme
+except ImportError:
+    sys.path.append(os.path.abspath(os.path.join(BASE_DIR, '../../')))
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "demo_app.settings.production")
 
 application = get_wsgi_application()
