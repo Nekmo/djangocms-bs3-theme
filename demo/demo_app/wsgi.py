@@ -1,5 +1,5 @@
 """
-WSGI config for nekmocom project.
+WSGI config for djangocms-bs3-theme project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

@@ -32,7 +32,7 @@ MAX_DATABASE_BACKUPS = 10
 REQUIREMENTS_FILE = 'demo/requirements.txt'
 SETTINGS = 'demo_app.settings.production'
 MANAGE_PRE_ARGUMENTS = 'PYTHONPATH=::$PWD'
-MANAGE_ARGUMENTS = '--settings {}'.format(SETTINGS)
+MANAGE_ARGUMENTS = '--settings {} --noinput'.format(SETTINGS)
 # http://www.postgresql.org/docs/8.2/static/sql-alterschema.html
 CLEAR_SQL = """
 DROP SCHEMA public CASCADE;
