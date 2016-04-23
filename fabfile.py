@@ -31,8 +31,8 @@ STATIC_FILES_DIR = '~/Static'
 MAX_DATABASE_BACKUPS = 10
 REQUIREMENTS_FILE = 'demo/requirements.txt'
 SETTINGS = 'demo_app.settings.production'
-
-
+MANAGE_PRE_ARGUMENTS = 'PYTHONPATH=::$PWD'
+MANAGE_ARGUMENTS = '--settings {}'.format(SETTINGS)
 # http://www.postgresql.org/docs/8.2/static/sql-alterschema.html
 CLEAR_SQL = """
 DROP SCHEMA public CASCADE;
@@ -68,7 +68,7 @@ def _create_directory(directory):
 def _collecstatic():
     static_directory = '{}/{}'.format(STATIC_FILES_DIR, REMOTE_PROJECT)
     _create_directory(static_directory)
-    run('python {} collectstatic -c --settings {}'.format(MANAGE, SETTINGS))
+    run('{} python {} collectstatic -c --settings {}'.format(MANAGE_PRE_ARGUMENTS, MANAGE, SETTINGS))
 
 
 def _backup_db():
@@ -96,7 +96,7 @@ def _copy_database():
 
 
 def _migrate():
-    run('python {} migrate'.format(MANAGE))
+    run('{} python {} migrate {}'.format(MANAGE_PRE_ARGUMENTS, MANAGE, MANAGE_ARGUMENTS))
 
 
 def tox():

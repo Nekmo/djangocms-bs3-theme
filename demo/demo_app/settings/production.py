@@ -5,3 +5,4 @@ DATABASES = getattr(secrets, 'DATABASES', DATABASES)
 
 DEBUG = False
 ALLOWED_HOSTS = ['*']
+STATIC_ROOT = os.path.expanduser('~/Static')
