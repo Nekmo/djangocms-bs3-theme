@@ -35,6 +35,7 @@ for app in settings.INSTALLED_APPS:
         menus += list(map(lambda x: (os.path.join('cms_bs3_theme', 'menus', x), '.'.join(x.split('.')[:-1])),
                           os.listdir(menus_dir)))
 
+
 class ChangeThemeOptionsForm(Form):
     bootstrap3_theme = ChoiceField(choices=sorted(themes))
     bootstrap3_menu_template = ChoiceField(choices=sorted(menus))

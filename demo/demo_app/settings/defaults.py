@@ -53,7 +53,7 @@ WSGI_APPLICATION = 'demo_app.wsgi.application'
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'es'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'Europe/Madrid'
 
@@ -75,6 +75,11 @@ STATIC_ROOT = os.path.join(DATA_DIR, 'static')
 STATICFILES_DIRS = (
 )
 SITE_ID = 1
+
+LANGUAGES = (
+    # Customize this
+    ('en', gettext('en')),
+)
 
 
 TEMPLATES = [
@@ -141,6 +146,14 @@ INSTALLED_APPS = (
     'sekizai',
     'treebeard',
 
+    'djangocms_file',
+    'djangocms_googlemap',
+    'djangocms_inherit',
+    'djangocms_link',
+    'djangocms_picture',
+    'djangocms_teaser',
+    'djangocms_video',
+
     'reversion',
 
     'demo_app',
@@ -148,6 +161,22 @@ INSTALLED_APPS = (
 
     'bootstrap3',
     'djangocms_text_ckeditor',
+
+    'cms_bs3_theme_solid',
+
+    'filer',
+    'cmsplugin_filer_file',
+    'cmsplugin_filer_folder',
+    'cmsplugin_filer_link',
+    'cmsplugin_filer_teaser',
+    'cmsplugin_filer_video',
+
+
+    'easy_thumbnails',
+    'aldryn_bootstrap3',
+
+
+
     # 'djangocms_style',
     # 'djangocms_column',
     # 'djangocms_file',
@@ -161,14 +190,6 @@ INSTALLED_APPS = (
     # 'bootstrap3',
 )
 
-CMS_TEMPLATES = (
-    ('cms_bs3_theme/fullwidth.html', 'BS3 Fullwidth'),
-    # ('cms_bs3_theme/sidebar_right.html', 'BS3 Sidebar Right'),
-    # ('cms_bs3_theme/sidebar_left.html', 'BS3 Sidebar Left'),
-    # ('cms_bs3_theme/feature.html', 'BS3 Feature'),
-    # ('cms_bs3_theme/clear.html', 'BS3 Feature'),
-)
-
 CMS_PERMISSION = True
 
 ALDRYN_BOILERPLATE_NAME = 'bootstrap3'
@@ -180,4 +201,15 @@ DATABASES = {
     }
 }
 
-TECTION = {'default': {'BACKEND': 'djangocms_comments.spam.Akismet', 'TOKEN': secrets.AKISMET_API_KEY}}
+CMS_TEMPLATES = (
+    # ('cms_bs3_theme/page.html', 'BS3 Page'),
+    ('cms_bs3_theme/fullwidth.html', 'BS3 Fullwidth'),
+    ('cms_bs3_theme/sidebar_right.html', 'BS3 Sidebar Right'),
+    ('cms_bs3_theme/sidebar_left.html', 'BS3 Sidebar Left'),
+    ('cms_bs3_theme/feature.html', 'BS3 Feature'),
+    ('cms_bs3_theme/landscape.html', 'BS3 Landscape'),
+)
+
+BOOTSTRAP3_THEME = 'solid'
+BOOTSTRAP3_MENU_TEMPLATE = 'cms_bs3_theme/menus/fluid-static-top-default.html'
+

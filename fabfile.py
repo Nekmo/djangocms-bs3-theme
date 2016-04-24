@@ -68,7 +68,7 @@ def _create_directory(directory):
 def _collecstatic():
     static_directory = '{}/{}'.format(STATIC_FILES_DIR, REMOTE_PROJECT)
     _create_directory(static_directory)
-    run('{} python {} collectstatic -c --settings {}'.format(MANAGE_PRE_ARGUMENTS, MANAGE, SETTINGS))
+    run('{} python {} collectstatic -c --settings {}'.format(MANAGE_PRE_ARGUMENTS, MANAGE, MANAGE_ARGUMENTS))
 
 
 def _backup_db():

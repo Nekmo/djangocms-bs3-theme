@@ -4,6 +4,6 @@ from django.utils.translation import ugettext_lazy as _
 
 class BS3DemoApphook(CMSApp):
     name = _("DjangoCMS BS3 Theme Demo")
-    urls = ['demo_app.urls']
+    urls = ['cms_bs3_theme.urls']
 
 apphook_pool.register(BS3DemoApphook)
