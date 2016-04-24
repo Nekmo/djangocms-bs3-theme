@@ -164,6 +164,7 @@ INSTALLED_APPS = (
 
     'cms_bs3_theme_solid',
 
+    'djangocms_snippet',
     'filer',
     'cmsplugin_filer_file',
     'cmsplugin_filer_folder',
