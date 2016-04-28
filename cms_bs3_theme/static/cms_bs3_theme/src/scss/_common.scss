@@ -1,3 +1,13 @@
+
+$fa-font-path: "../libs/font-awesome/fonts";
+
+@if compass-env() == 'production' {
+    $fa-font-path: "../fonts/font-awesome"
+}
+
+@import "../libs/font-awesome/scss/font-awesome";
+
+
 html {
     &.fluid-fixed-top-default, &.fluid-fixed-top, &.fluid-fixed-top-inverse {
         body {

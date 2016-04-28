@@ -1,0 +1,33 @@
+{
+  "name": "djangocms-bs3-theme",
+  "homepage": "https://github.com/Nekmo/djangocms-bs3-theme",
+  "authors": [
+    "Nekmo <contacto@nekmo.com>"
+  ],
+  "description": "Djangocms-bs3-theme static libs",
+  "main": "",
+  "moduleType": [],
+  "keywords": [
+    "django",
+    "cms",
+    "bs3",
+    "bootstrap3",
+    "themes",
+    "templates"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "cms_bs3_theme/static/cms_bs3_theme/src/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass": "^3.3.6",
+    "bootswatch": "thomaspark/bootswatch#^3.3.6+1",
+    "font-awesome": "^4.6.1"
+  }
+}

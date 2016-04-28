@@ -63,3 +63,4 @@ local.sqlite
 /cms_bs3_theme/static/cms_bs3_theme/src/libs
 .idea
 .sass-cache
+.directory
