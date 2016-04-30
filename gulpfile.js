@@ -8,7 +8,7 @@ var gulp = require('gulp'),
 gulp.task('fonts-fontawesome', function() {
     return gulp.src([
         'src/libs/font-awesome/fonts/fontawesome-webfont*'])
-        .pipe(gulp.dest('dist/fonts/fontawesome'));
+        .pipe(gulp.dest('dist/fonts/font-awesome'));
 });
 gulp.task('fonts-glyphicons', function() {
     return gulp.src([

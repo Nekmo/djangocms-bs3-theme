@@ -1,5 +1,8 @@
 {% extends "cms_bs3_theme/base.html" %}
 {% load static %}
 {% block bs3_theme_css %}
-    <link rel="stylesheet" href="{% static 'cms_bs3_theme/src/css/cyborg.css' %}">
-{% endblock %}
+    {% if bs3_conf.BOOTSTRAP3_FORCE_SRC %}
+        <link rel="stylesheet" href="{% static 'cms_bs3_theme/src/css/cyborg.css' %}">
+    {% else %}
+        <link rel="stylesheet" href="{% static 'cms_bs3_theme/dist/css/cyborg.css' %}">
+    {% endif %}{% endblock %}

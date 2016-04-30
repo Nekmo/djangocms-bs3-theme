@@ -6,7 +6,11 @@
         <title>{% block title %}DjangoCMS Bootstrap Theme{% endblock title %}</title>
         <meta name="viewport" content="width=device-width,initial-scale=1">
         {% block bs3_theme_css %}
-              <link rel="stylesheet" href="{% static 'cms_bs3_theme/src/css/default.css' %}">
+            {% if bs3_conf.BOOTSTRAP3_FORCE_SRC %}
+                <link rel="stylesheet" href="{% static 'cms_bs3_theme/src/css/default.css' %}">
+            {% else %}
+                <link rel="stylesheet" href="{% static 'cms_bs3_theme/dist/css/default.css' %}">
+            {% endif %}
         {% endblock %}
         {% render_block "css" %}
     </head>
