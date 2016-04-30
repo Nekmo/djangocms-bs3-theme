@@ -19,3 +19,16 @@ html {
         }
     }
 }
+
+@for $i from 1 to 20 {
+    $buffer: $i * 5;
+    .top-buffer-#{$buffer} {
+        margin-top: #{$buffer}px;
+    }
+
+    .bottom-buffer-#{$buffer}{
+        margin-bottom: #{$buffer}px;
+    }
+}
+
+

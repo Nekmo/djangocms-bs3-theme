@@ -2,6 +2,7 @@
 <div class="navbar-header">
     <div class="navbar-header">
         <a class="navbar-brand" href="/">
+
             {{ request.site.name|default:"Sitename" }}
             <span class="sr-only">{{ request.site.name|default:"Sitename" }}</span>
             <!-- <img src="{% static "img/logo-main@print.png" %}"
