@@ -16,7 +16,9 @@
     </head>
     <body>
         {% cms_toolbar %}
-        {% include bs3_conf.BOOTSTRAP3_MENU_TEMPLATE %}
+        {% block header %}
+            {% include bs3_conf.BOOTSTRAP3_MENU_TEMPLATE %}
+        {% endblock %}
         {% block content %}{% endblock content %}
         {% block bs3_theme_js %}
               <script src="{% static 'cms_bs3_theme/src/libs/jquery/dist/jquery.js' %}"></script>
