@@ -1,4 +1,4 @@
-from django.template.base import FilterExpression, token_kwargs
+from django.template.base import token_kwargs
 from django.template.exceptions import TemplateDoesNotExist
 from django.template.loader import get_template
 from django.template.loader_tags import ExtendsNode, register, IncludeNode
@@ -6,12 +6,10 @@ from django.template import TemplateSyntaxError
 from django.utils.safestring import SafeText
 
 from cms_bs3_theme import conf
-from cms_bs3_theme.models import ThemeSite
 
 
 def template_to_theme(filter_expression, context):
-    theme = context.get('bs3_conf', {}).get('BOOTSTRAP3_THEME',
-                                            ThemeSite.objects.get_theme_name(conf.BOOTSTRAP3_THEME))
+    theme = context.get('bs3_conf', {}).get('BOOTSTRAP3_THEME', conf.BOOTSTRAP3_THEME)
     app, path = filter_expression.var.split('/', 1)
     template_theme = '{0}/themes/{1}/{2}'.format(app, theme, path)
     try:
