@@ -1,0 +1,3 @@
+recursive-include cms_bs3_theme/boilerplates *
+recursive-include cms_bs3_theme/templates *
+recursive-include cms_bs3_theme/static/cms_bs3_theme/dist *
