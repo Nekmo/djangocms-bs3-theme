@@ -2,6 +2,8 @@ process.chdir('cms_bs3_theme/static/cms_bs3_theme');
 var gulp = require('gulp'),
     compass = require('gulp-compass');
     cleanCSS = require('gulp-clean-css');
+    uglify = require('gulp-uglify');
+    concat = require('gulp-concat');
 
 
 // Fonts
@@ -34,7 +36,18 @@ gulp.task('minify-css', ['sass'], function() {
 });
 
 
+// Javascript
+gulp.task('minify-js', function () {
+    return gulp.src(['src/libs/jquery/dist/jquery.js', 'src/libs/bootstrap-sass/assets/javascripts/bootstrap.js'])
+        .pipe(concat('jq-bs3.min.js'))
+        .pipe(uglify({
+            // project_path: cwd,
+        }))
+        .pipe(gulp.dest('dist/js/'));
+});
+
+
 gulp.task('default', function() {
     // place code for your default task here
-    gulp.start('minify-css', 'copy-fonts');
+    gulp.start('minify-css', 'minify-js', 'copy-fonts');
 });
