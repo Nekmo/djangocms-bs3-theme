@@ -14,7 +14,7 @@
         {% endblock %}
         {% render_block "css" %}
     </head>
-    <body>
+    <body class="{% block body_class %}{% endblock %}">
         {% cms_toolbar %}
         {% block header %}
             {% include bs3_conf.BOOTSTRAP3_MENU_TEMPLATE %}

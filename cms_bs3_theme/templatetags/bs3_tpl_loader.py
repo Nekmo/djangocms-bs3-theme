@@ -30,6 +30,7 @@ class Bs3ExtendsNode(ExtendsNode):
 
     def render(self, context):
         self.parent_name = template_to_theme(self.parent_name, context)
+        print(self.parent_name)
         return super(Bs3ExtendsNode, self).render(context)
 
 
