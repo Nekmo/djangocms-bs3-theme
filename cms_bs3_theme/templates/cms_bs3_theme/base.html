@@ -3,7 +3,7 @@
 <html class="{{ bs3_conf.BOOTSTRAP3_MENU_TEMPLATE|only_file_name }}">
     <head>
         <meta charset="utf-8">
-        <title>{% block title %}DjangoCMS Bootstrap Theme{% endblock title %}</title>
+        <title>{% block title %}{% page_attribute "page_title" %}{% endblock title %}</title>
         <meta name="viewport" content="width=device-width,initial-scale=1">
         {% block bs3_theme_css %}
             {% if bs3_conf.BOOTSTRAP3_FORCE_SRC %}
