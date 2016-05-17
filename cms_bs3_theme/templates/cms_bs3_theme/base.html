@@ -4,7 +4,20 @@
     <head>
         <meta charset="utf-8">
         <title>{% block title %}{% page_attribute "page_title" %} - {{ request.site.name|default:"Sitename" }}{% endblock title %}</title>
-        <meta name="viewport" content="width=device-width,initial-scale=1">
+        {% block meta_tags %}
+            <meta name="viewport" content="width=device-width,initial-scale=1">
+            <meta name="description" content="{% spaceless %}
+                {% block meta_description %}
+                    {% page_attribute meta_description %}
+                {% endblock %}
+            {% endspaceless %}">
+            <meta name="keywords" content="{% spaceless %}
+                {% block meta_keywords %}
+                    {% page_attribute meta_keywords %}
+                {% endblock %}
+            {% endspaceless %}">
+        {% endblock meta_tags %}
+
         {% block bs3_theme_css %}
             {% if bs3_conf.BOOTSTRAP3_FORCE_SRC %}
                 <link rel="stylesheet" href="{% static 'cms_bs3_theme/src/css/default.css' %}">
