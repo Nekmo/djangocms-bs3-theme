@@ -8,8 +8,14 @@ from django.utils.safestring import SafeText
 from cms_bs3_theme import conf
 
 
+CACHE = {}
+
+
 def template_to_theme(filter_expression, context):
     theme = context.get('bs3_conf', {}).get('BOOTSTRAP3_THEME', conf.BOOTSTRAP3_THEME)
+    cache_param = (theme, filter_expression)
+    if cache_param in CACHE:
+        return CACHE[cache_param]
     app, path = filter_expression.var.split('/', 1)
     template_theme = '{0}/themes/{1}/{2}'.format(app, theme, path)
     try:
@@ -19,6 +25,7 @@ def template_to_theme(filter_expression, context):
     else:
         filter_expression.token = repr(template_theme)
         filter_expression.var = SafeText(template_theme)
+    CACHE[cache_param] = filter_expression
     return filter_expression
 
 
