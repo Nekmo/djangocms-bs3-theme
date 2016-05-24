@@ -26,6 +26,7 @@
             {% endif %}
         {% endblock %}
         {% render_block "css" %}
+        {% block extra_head %}{% endblock %}
     </head>
     <body class="{% block body_class %}{% endblock %}"{% block body_tag %}{% endblock %}>
         {% cms_toolbar %}
