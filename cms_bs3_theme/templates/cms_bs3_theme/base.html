@@ -33,7 +33,7 @@
         {% block header %}
             {% include bs3_conf.BOOTSTRAP3_MENU_TEMPLATE %}
         {% endblock %}
-        {% block content %}{% endblock content %}
+        <div class="content-wrapper">{% block content %}{% endblock content %}</div>
         {% block footer %}{% endblock %}
         {% block bs3_theme_js %}
             {% if bs3_conf.BOOTSTRAP3_FORCE_SRC %}
