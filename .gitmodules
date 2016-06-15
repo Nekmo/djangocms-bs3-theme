@@ -1,3 +1,0 @@
-[submodule "demo/demo_app/secrets"]
-	path = demo/demo_app/secrets
-	url = git@bitbucket.org:Nekmo/djangocms-bs3-theme-secrets.git
