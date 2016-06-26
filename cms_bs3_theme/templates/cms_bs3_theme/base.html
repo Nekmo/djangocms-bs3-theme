@@ -37,12 +37,12 @@
         {% block footer %}{% endblock %}
         {% block bs3_theme_js %}
             {% if bs3_conf.BOOTSTRAP3_FORCE_SRC %}
-              <script src="{% static 'cms_bs3_theme/src/libs/jquery/dist/jquery.js' %}"></script>
-              <script
+              <script type="text/javascript" src="{% static 'cms_bs3_theme/src/libs/jquery/dist/jquery.js' %}"></script>
+              <script type="text/javascript"
                       src="{% static 'cms_bs3_theme/src/libs/bootstrap-sass/assets/javascripts/bootstrap.js' %}">
               </script>
             {% else %}
-              <script src="{% static 'cms_bs3_theme/dist/js/jq-bs3.min.js' %}"></script>
+              <script type="text/javascript" src="{% static 'cms_bs3_theme/dist/js/jq-bs3.min.js' %}"></script>
             {% endif %}
         {% endblock %}
         {% render_block "js" %}
