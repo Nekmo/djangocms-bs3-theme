@@ -1,0 +1,40 @@
+version: '2.1'
+services:
+
+  nginx:
+    restart: on-failure
+    image: "nginx"
+    volumes:
+      - ./conf/nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./conf/nginx/ssl:/etc/nginx/ssl:ro
+      - ./data/nginx/log/:/var/log/nginx/
+    volumes_from:
+      - gunicorn
+    ports:
+      - "80"
+      - "443"
+    command: [ 'nginx-debug', '-g', 'daemon off;']
+
+  gunicorn:
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - .:/code
+      - ./data/gunicorn/logs:/var/log/gunicorn/
+      - ./data/gunicorn/media:/media
+      - ./data/gunicorn/static:/static
+    env_file:
+      - .env
+    environment:
+      DJANGO_SETTINGS_MODULE: demo_app.settings.production
+      FORCE_BUILD: 1
+
+  postgres:
+    restart: on-failure
+    image: postgres
+    volumes:
+      - ./data/postgres/data:/var/lib/postgresql/data
+    env_file:
+      - .env

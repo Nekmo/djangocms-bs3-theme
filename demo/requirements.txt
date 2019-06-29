@@ -27,7 +27,7 @@ djangocms-inherit==0.1.1
 djangocms-link==1.7.2
 djangocms-oembed==0.5
 djangocms-picture==1.0.0
--e git+https://github.com/blueyed/djangocms-snippet.git@dc754d59050d24503fdbf31e6fcd5ed099675a1f#egg=djangocms_snippet-master
+-e git+https://github.com/nekmocom/djangocms-snippet.git@dc754d59050d24503fdbf31e6fcd5ed099675a1f#egg=djangocms_snippet-master
 djangocms-style==1.7.0
 djangocms-table==1.2
 djangocms-teaser==0.2.0
@@ -53,4 +53,6 @@ South==1.0.2
 ssh==1.8.0
 Unidecode==0.4.19
 wheel==0.24.0
+gunicorn
+-e git+https://github.com/Nekmo/djangocms-bs3-theme.git@master#egg=djangocms-bs3-theme
 -e git+https://github.com/Nekmo/djangocms-bs3-theme-solid.git@master#egg=djangocms-bs3-theme-solid
