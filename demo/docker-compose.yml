@@ -1,4 +1,4 @@
-version: '2.1'
+version: '3'
 services:
 
   nginx:
@@ -13,6 +13,11 @@ services:
     ports:
       - "80"
       - "443"
+    networks:
+      - nginx-proxy
+      - default
+    environment:
+      VIRTUAL_HOST: djangocms-bs3-theme.nekmo.org
     command: [ 'nginx-debug', '-g', 'daemon off;']
 
   gunicorn:
@@ -38,3 +43,7 @@ services:
       - ./data/postgres/data:/var/lib/postgresql/data
     env_file:
       - .env
+networks:
+  nginx-proxy:
+    external:
+      name: nginx-proxy
