@@ -14,10 +14,15 @@ services:
       - "80"
       - "443"
     networks:
-      - nginx-proxy
+      - web-router
       - default
-    environment:
-      VIRTUAL_HOST: djangocms-bs3-theme.nekmo.org
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web-router"
+
+      - "traefik.http.routers.paste.rule=Host(`djangocms-bs3-theme.nekmo.org`)"
+      - "traefik.http.routers.paste.entrypoints=websecure"
+      - "traefik.http.routers.paste.tls.certresolver=certbot"
     command: [ 'nginx-debug', '-g', 'daemon off;']
 
   gunicorn:
@@ -44,6 +49,6 @@ services:
     env_file:
       - .env
 networks:
-  nginx-proxy:
+  web-router:
     external: yes
-    name: nginx-proxy
+    name: web-router
