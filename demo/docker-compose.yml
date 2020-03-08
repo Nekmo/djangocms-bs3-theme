@@ -20,9 +20,9 @@ services:
       - "traefik.enable=true"
       - "traefik.docker.network=web-router"
 
-      - "traefik.http.routers.paste.rule=Host(`djangocms-bs3-theme.nekmo.org`)"
-      - "traefik.http.routers.paste.entrypoints=websecure"
-      - "traefik.http.routers.paste.tls.certresolver=certbot"
+      - "traefik.http.routers.djangocms-bs3-theme.rule=Host(`djangocms-bs3-theme.nekmo.org`)"
+      - "traefik.http.routers.djangocms-bs3-theme.entrypoints=websecure"
+      - "traefik.http.routers.djangocms-bs3-theme.tls.certresolver=certbot"
     command: [ 'nginx-debug', '-g', 'daemon off;']
 
   gunicorn:
