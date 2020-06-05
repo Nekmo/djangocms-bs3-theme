@@ -2,7 +2,7 @@ aldryn-bootstrap3==1.0.9
 -e git+https://github.com/divio/cmsplugin-filer.git@230da930486b0bf8e8d0529dc241031d6224655a#egg=cmsplugin_filer-develop
 cssselect==0.9.1
 dj-database-url==0.4.1
-Django==1.9.5
+Django==1.11.29
 django-appconf==1.0.2
 django-bootstrap3==7.0.1
 django-classy-tags==0.7.2
