@@ -52,7 +52,7 @@ six==1.10.0
 South==1.0.2
 ssh==1.8.0
 Unidecode==0.4.19
-wheel==0.24.0
+wheel==0.38.1
 gunicorn
 -e git+https://github.com/Nekmo/djangocms-bs3-theme.git@master#egg=djangocms-bs3-theme
 -e git+https://github.com/Nekmo/djangocms-bs3-theme-solid.git@master#egg=djangocms-bs3-theme-solid
